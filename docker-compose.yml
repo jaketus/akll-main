@@ -4,13 +4,10 @@ services:
   nginx:
     image: nginx:1.19.2-alpine
     ports:
-      - "80:80"
       - "8000:8000"
       - "7000:7000"
     volumes:
       - ./data/nginx:/etc/nginx/conf.d
-      - ./localhost.crt:/etc/ssl/certs/localhost.crt
-      - ./localhost.key:/etc/ssl/private/localhost.key
 
   frontend_akl:
     build:
@@ -29,8 +26,6 @@ services:
       - NODE_ENV=production
 
   backend:
-    ports:
-      - 3000:3000
     build: ./AKL-2020-Backend/
     env_file:
       - ./AKL-2020-Backend/.env
@@ -38,8 +33,6 @@ services:
   database:
     image: mongo
     restart: always
-    ports:
-      - 27017:27017
     volumes:
       - ./mongo-volume:/data/db
 
