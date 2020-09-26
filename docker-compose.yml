@@ -28,13 +28,28 @@ services:
   backend:
     build: ./AKL-2020-Backend/
     env_file:
-      - ./AKL-2020-Backend/.env
+      - ./envs/.env.backend
 
   database:
     image: mongo
     restart: always
     volumes:
       - ./mongo-volume:/data/db
+
+  challonge:
+    build: ./akll-challonge/
+    env_file:
+      - ./envs/.env.challonge
+
+  match_config:
+    build: ./akl-match-config/
+    env_file:
+      - ./envs/.env.matchconfig
+
+  match_service:
+    build: ./akl-match-service/
+    env_file:
+      - ./envs/.env.matchservice
 
 volumes:
   akl-volume:
